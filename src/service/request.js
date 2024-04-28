@@ -31,7 +31,10 @@ request.interceptors.request.use(config => {
 
 // http response 拦截器
 request.interceptors.response.use(res => {
-    return res;
+    const { data } = res;
+    if (data.code || data.status || data.status === undefined) {
+        return res;
+    }
 }, err => {
     if (err && err.response) {
         switch (err.response.status) {

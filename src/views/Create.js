@@ -7,6 +7,7 @@
  * @Description: 
  */
 import Navbar from '../Navbar'
+import Footer from '../Footer';
 
 function Create() {
     return (
@@ -15,6 +16,7 @@ function Create() {
             <div>
                 <h2>Create页面</h2>
             </div>
+            <Footer></Footer>
         </div>
     );
 }

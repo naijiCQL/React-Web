@@ -92,6 +92,51 @@ ul {
   }
 }
 
+.footer-page {
+  position: fixed;
+  bottom: 2%;
+
+  span {
+    color: #777;
+    text-align: center;
+    font-size: 1rem;
+  }
+}
+
+.details-page {
+  width: 65%;
+
+  p {
+    font-size: 1rem;
+    text-align: left;
+  }
+
+  .details-first {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h2 {
+      font-size: 1.5rem;
+      margin: 50px 0;
+    }
+
+  }
+
+  .delete-icon {
+    cursor: pointer;
+    height: 100%;
+    border-radius: 50%;
+    padding: 7px;
+  }
+
+  .delete-icon:hover {
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2)
+  }
+}
+
+
+
 
 .App-logo {
   height: 40vmin;

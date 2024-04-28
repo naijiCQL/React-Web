@@ -2,7 +2,7 @@
  * @Author: 陈巧龙
  * @Date: 2024-04-24 21:09:28
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2024-04-27 13:43:24
+ * @LastEditTime: 2024-04-27 21:31:02
  * @FilePath: \react-app\src\views\Home.js
  * @Description: 
  */
@@ -13,6 +13,7 @@ import Navbar from "../Navbar";
 import { Link } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { incrementByAmount } from "../store/reducer";
+import Footer from "../Footer"
 
 const HomePage = () => {
 
@@ -24,11 +25,13 @@ const HomePage = () => {
     //获取后台博客数据
     const getBlogsInfo = function () {
         getBlogs().then((res) => {
-            setBlogs(res.data)
-            setLoading(false)
-            success()
-            //将数据进行保存
-            dispatch(incrementByAmount(res.data))
+            if (res.data) {
+                setBlogs(res.data)
+                setLoading(false)
+                success()
+                //将数据进行保存
+                dispatch(incrementByAmount(res.data))
+            }
         }).catch((err) => {
             console.log(err);
         })
@@ -47,10 +50,10 @@ const HomePage = () => {
 
     return (
         <div className="App">
-            <Navbar></Navbar>
+            <Navbar />
             <div className="home-page">
                 {contextHolder}
-                {blogs.map((item) => {
+                {blogs && blogs.map((item) => {
                     return (
                         <div className="blog-preview" key={item._id}>
                             <Link to={`/blogs/${item._id}`}>
@@ -65,6 +68,7 @@ const HomePage = () => {
                     <div className="content" />
                 </Spin>
             </div>
+            <Footer />
         </div>
     );
 }
