@@ -2,27 +2,38 @@
  * @Author: 陈巧龙
  * @Date: 2024-04-27 13:46:53
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2024-04-28 12:19:20
+ * @LastEditTime: 2024-06-04 14:50:12
  * @FilePath: \react-app\src\views\Details.js
  * @Description: 
  */
 import Navbar from '../Navbar';
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import Footer from '../Footer';
 import { DeleteOutlined } from '@ant-design/icons';
 import { Tooltip } from 'antd';
+import { delBlogs } from '../service/home';
+import { message } from 'antd';
 
 
 const Details = () => {
-    const params = useParams() //获得冒号（：id）后面的参数
-    console.log(params);
+    //获得冒号（：id）后面的参数
+    const params = useParams()
 
+    // 博客数据
     const count = useSelector((state) => state.blog.value);
-    console.log(count);
 
     let title = ''
     let body = ''
+
+    const [messageApi, contextHolder] = message.useMessage();
+
+    const success = () => {
+        messageApi.open({
+            type: 'success',
+            content: 'Blog deleted successfully!',
+        });
+    };
 
     count.forEach((item) => {
         if (item._id === params.id) {
@@ -31,15 +42,24 @@ const Details = () => {
         }
     })
 
+    const navigate = useNavigate();
+    //删除博客数据
+    const delSelectedBlogs = function () {
+        delBlogs(params.id).then((res) => {
+            success()
+            navigate('/blogs');
+        })
+    }
 
     return (
         <div className="App">
+            {contextHolder}
             <Navbar></Navbar>
             <div className="details-page">
                 <div className='details-first'>
                     <h2>{title}</h2>
                     <Tooltip title="delete" color={'red'}>
-                        <DeleteOutlined className='delete-icon' />
+                        <DeleteOutlined className='delete-icon' onClick={delSelectedBlogs} />
                     </Tooltip>
                 </div>
                 <p>{body}</p>
